@@ -318,4 +318,118 @@
         protocolo_entrega: document.getElementById("protocolo_entrega").value
       };
 
-      try
+      try {
+        const res = await fetch(`${API_BASE}/publicaciones`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          document.getElementById("form-publicacion").reset();
+          cargarPublicaciones();
+        } else {
+          alert("Hubo un error al guardar la publicación.");
+        }
+      } catch (err) {
+        alert("No se pudo conectar con el servidor.");
+      }
+    });
+
+    // Control de Modal Dividido
+    function abrirModalTrato(alias, contacto, precioUsd, metodosPago) {
+      modalEstado.alias = alias;
+      modalEstado.contacto = contacto;
+      modalEstado.precioUsd = precioUsd;
+      modalEstado.metodosPago = metodosPago;
+
+      document.getElementById("modal-titulo").textContent = `Trato con @${alias}`;
+      cambiarTabModal('chat');
+
+      const modal = document.getElementById("modal-qr");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function cambiarTabModal(modo) {
+      modalEstado.modoActual = modo;
+      const tabChat = document.getElementById("tab-chat");
+      const tabPago = document.getElementById("tab-pago");
+      const instruccion = document.getElementById("modal-instruccion");
+      const info = document.getElementById("modal-info");
+      const qrContainer = document.getElementById("qrcode-box");
+
+      qrContainer.innerHTML = "";
+
+      if (modo === 'chat') {
+        tabChat.className = "flex-1 py-1.5 font-semibold rounded bg-emerald-600 text-white transition-all";
+        tabPago.className = "flex-1 py-1.5 font-semibold rounded text-slate-400 hover:text-white transition-all";
+        instruccion.textContent = "Añade este Session ID en tu app para coordinar entrega sin número de teléfono:";
+        info.textContent = modalEstado.contacto;
+
+        new QRCode(qrContainer, {
+          text: modalEstado.contacto,
+          width: 150,
+          height: 150,
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        tabPago.className = "flex-1 py-1.5 font-semibold rounded bg-emerald-600 text-white transition-all";
+        tabChat.className = "flex-1 py-1.5 font-semibold rounded text-slate-400 hover:text-white transition-all";
+        
+        const xmrMonto = cryptoPrecios.xmr > 0 ? (modalEstado.precioUsd / cryptoPrecios.xmr).toFixed(4) : "0.0000";
+        instruccion.textContent = `Pide la dirección de wallet por Session y transfiere los $${modalEstado.precioUsd} USD (≈ ${xmrMonto} XMR):`;
+        info.textContent = `Acepta: ${modalEstado.metodosPago} | Monto acordado: $${modalEstado.precioUsd} USD`;
+
+        // Genera QR de pago referencial seguro
+        new QRCode(qrContainer, {
+          text: `MERCADO_CUSCO_P2P:${modalEstado.alias}:${modalEstado.precioUsd}_USD`,
+          width: 150,
+          height: 150,
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }
+
+    function copiarAlPortapapeles() {
+      const texto = document.getElementById("modal-info").textContent;
+      navigator.clipboard.writeText(texto).then(() => {
+        const btn = document.getElementById("btn-copiar");
+        const original = btn.textContent;
+        btn.textContent = "✓ ¡Copiado!";
+        btn.classList.add("text-emerald-400");
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove("text-emerald-400");
+        }, 1500);
+      });
+    }
+
+    function cerrarModal() {
+      const modal = document.getElementById("modal-qr");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function filtrar(tipo) {
+      document.querySelectorAll(".filtro-btn").forEach(b => {
+        b.classList.remove("bg-slate-800", "text-slate-200");
+        b.classList.add("bg-slate-900", "text-slate-400");
+      });
+      event.target.classList.remove("bg-slate-900", "text-slate-400");
+      event.target.classList.add("bg-slate-800", "text-slate-200");
+      cargarPublicaciones(tipo);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      await actualizarPreciosCrypto();
+      cargarPublicaciones();
+      setInterval(actualizarPreciosCrypto, 60000);
+    });
+  </script>
+</body>
+</html>
