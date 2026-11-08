@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercado Cusco P2P - Protocolo Confidencial</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- QRCode.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- Header Principal -->
+    <header class="border-b border-slate-800 pb-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <span>🇵🇪 Mercado Cusco P2P</span>
+          <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono">Zero-KYC</span>
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">Intercambio anónimo y descentralizado de bienes, servicios y criptoactivos en la región de Cusco.</p>
+      </div>
+
+      <!-- Ticker Crypto en Vivo -->
+      <div id="crypto-ticker" class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs flex gap-4 font-mono shadow-inner">
+        <div>
+          <span class="text-slate-500">BTC/USD:</span>
+          <span id="btc-price" class="text-amber-400 font-bold ml-1">Cargando...</span>
+        </div>
+        <div>
+          <span class="text-slate-500">XMR/USD:</span>
+          <span id="xmr-price" class="text-orange-400 font-bold ml-1">Cargando...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Protocolo de Seguridad y Advertencias -->
+    <section class="bg-slate-900/80 border-l-4 border-emerald-500 p-4 rounded-r-lg space-y-1 text-xs md:text-sm text-slate-300">
+      <div class="font-bold text-emerald-400 text-sm mb-1">Protocolo de Seguridad y Confidencialidad:</div>
+      <p>• <strong>Vendedor / Ofertante:</strong> Usa una sub-dirección de wallet nueva para cada transacción. No compartas tu número personal; usa Session ID o SimpleX.</p>
+      <p>• <strong>Comprador / Demandante:</strong> Si el bien es físico, pacten un punto neutral concurrido (ej: Real Plaza Cusco, Plaza Túpac Amaru) o servicio de encomienda local con seudónimo.</p>
+    </section>
+
+    <!-- Formulario Crear Publicación -->
+    <section class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
+      <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <span>Crear Publicación Anónima</span>
+      </h2>
+      <form id="form-publicacion" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Tipo -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Tipo de Publicación</label>
+            <select id="tipo" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+              <option value="OFERTA">Tengo / Ofrezco (Venta de bien o servicio)</option>
+              <option value="DEMANDA">Busco / Necesito (Demanda de bien o servicio)</option>
+            </select>
+          </div>
+
+          <!-- Alias Seudónimo -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Alias Seudónimo</label>
+            <input type="text" id="alias" placeholder="ej: Qosqo_Ghost" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+          </div>
+
+          <!-- Título -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Título de la oferta/demanda</label>
+            <input type="text" id="titulo" placeholder="ej: Laptop ThinkPad T480 o Consultoría Python" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+          </div>
+
+          <!-- Categoría -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Categoría</label>
+            <select id="categoria" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+              <option value="Bienes / Hardware / Tecnología">Bienes / Hardware / Tecnología</option>
+              <option value="Servicios Profesionales / Freelance">Servicios Profesionales / Freelance</option>
+              <option value="Inmuebles / Arriendos Cortos">Inmuebles / Arriendos Cortos</option>
+              <option value="Intercambio Cripto P2P Efectivo">Intercambio Cripto P2P Efectivo</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+
+          <!-- Distrito / Ubicación -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Ubicación / Distrito (Cusco)</label>
+            <select id="distrito" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+              <option value="Cusco Centro">Cusco Centro</option>
+              <option value="Wanchaq">Wanchaq</option>
+              <option value="Santiago">Santiago</option>
+              <option value="San Sebastián">San Sebastián</option>
+              <option value="San Jerónimo">San Jerónimo</option>
+              <option value="Valle Sagrado / Urubamba">Valle Sagrado / Urubamba</option>
+              <option value="Coordinación Remota / Encomienda">Coordinación Remota / Encomienda</option>
+            </select>
+          </div>
+
+          <!-- Precio en USD -->
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Precio referencial (USD)</label>
+            <input type="number" step="0.01" id="precio_usd" placeholder="0.00" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+          </div>
+        </div>
+
+        <!-- Métodos de pago aceptados -->
+        <div>
+          <label class="block text-xs text-slate-400 mb-2">Métodos de pago aceptados (Selecciona uno o más):</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+            <label class="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800 cursor-pointer">
+              <input type="checkbox" name="pago" value="USDT (Polygon)" checked class="rounded border-slate-700 text-emerald-500">
+              <span>USDT (Polygon)</span>
+            </label>
+            <label class="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800 cursor-pointer">
+              <input type="checkbox" name="pago" value="Monero (XMR)" class="rounded border-slate-700 text-emerald-500">
+              <span>Monero (XMR)</span>
+            </label>
+            <label class="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800 cursor-pointer">
+              <input type="checkbox" name="pago" value="BTC Lightning" class="rounded border-slate-700 text-emerald-500">
+              <span>BTC Lightning</span>
+            </label>
+            <label class="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800 cursor-pointer">
+              <input type="checkbox" name="pago" value="Efectivo contraentrega" class="rounded border-slate-700 text-emerald-500">
+              <span>Efectivo contraentrega</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Contacto Seguro y Protocolo Entrega -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">ID de Session, SimpleX o Enlace seguro</label>
+            <input type="text" id="contacto_anonimo" placeholder="ej: 05a1b2c3d4e5..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Protocolo de Entrega / Encuentro</label>
+            <select id="protocolo_entrega" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+              <option value="Entrega en Punto Neutral Concurrido">Entrega en Punto Neutral Concurrido</option>
+              <option value="Entrega Digital / Remota Cifrada">Entrega Digital / Remota Cifrada</option>
+              <option value="Encomienda Local (Destinatario con Seudónimo)">Encomienda Local (Destinatario con Seudónimo)</option>
+              <option value="Coordinación Cifrada 1 a 1">Coordinación Cifrada 1 a 1</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-6 rounded-lg transition-colors text-sm shadow-lg shadow-emerald-900/30">
+          Publicar en la red P2P
+        </button>
+      </form>
+    </section>
+
+    <!-- Filtros de Publicaciones -->
+    <div class="flex gap-2">
+      <button onclick="filtrar('TODOS')" class="filtro-btn bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-xs font-semibold">Todos los anuncios</button>
+      <button onclick="filtrar('OFERTA')" class="filtro-btn bg-slate-900 hover:bg-slate-800 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Solo Ofertas (Disponibles)</button>
+      <button onclick="filtrar('DEMANDA')" class="filtro-btn bg-slate-900 hover:bg-slate-800 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Solo Demandas (Se busca)</button>
+    </div>
+
+    <!-- Contenedor del Feed de Publicaciones -->
+    <main id="feed" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Se inyectan dinámicamente con JS -->
+    </main>
+
+    <!-- Modal para QR de Pago / Contacto -->
+    <div id="modal-qr" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-50">
+      <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 max-w-sm w-full space-y-4 text-center">
+        <h3 id="modal-titulo" class="text-base font-bold text-white">Canal Cifrado</h3>
+        <p class="text-xs text-slate-400">Escanea desde tu app de mensajería (Session) o billetera no-custodial:</p>
+        <div id="qrcode-box" class="flex justify-center p-3 bg-white rounded-lg w-fit mx-auto"></div>
+        <p id="modal-info" class="text-xs font-mono break-all text-slate-300 bg-slate-950 p-2.5 rounded border border-slate-800"></p>
+        <button onclick="cerrarModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white py-2 rounded-lg text-xs font-semibold transition-colors">
+          Cerrar
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // URL PÚBLICA DEL BACKEND (CLOUDFLARE TUNNEL)
+    const API_BASE = "https://advertiser-mysterious-knee-catalyst.trycloudflare.com";
+
+    let cryptoPrecios = { btc: 0, xmr: 0 };
+
+    // 1. Obtener precios actualizados desde CoinGecko
+    async function actualizarPreciosCrypto() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,monero&vs_currencies=usd");
+        const data = await res.json();
+        cryptoPrecios.btc = data.bitcoin.usd;
+        cryptoPrecios.xmr = data.monero.usd;
+
+        document.getElementById("btc-price").textContent = `$${cryptoPrecios.btc.toLocaleString()} USD`;
+        document.getElementById("xmr-price").textContent = `$${cryptoPrecios.xmr.toLocaleString()} USD`;
+      } catch (err) {
+        document.getElementById("btc-price").textContent = "$85,000 USD";
+        document.getElementById("xmr-price").textContent = "$160 USD";
+        cryptoPrecios.btc = 85000;
+        cryptoPrecios.xmr = 160;
+      }
+    }
+
+    // 2. Cargar publicaciones desde FastAPI
+    async function cargarPublicaciones(tipo = "") {
+      const feed = document.getElementById("feed");
+      try {
+        const url = (tipo && tipo !== "TODOS") 
+          ? `${API_BASE}/publicaciones?tipo=${tipo}` 
+          : `${API_BASE}/publicaciones`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        feed.innerHTML = "";
+
+        if (data.length === 0) {
+          feed.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 text-sm">No hay publicaciones registradas aún en esta categoría.</div>`;
+          return;
+        }
+
+        data.forEach(pub => {
+          // Cálculo referencial satoshis y monero
+          const sats = cryptoPrecios.btc > 0 ? Math.round((pub.precio_usd / cryptoPrecios.btc) * 100000000) : 0;
+          const xmr = cryptoPrecios.xmr > 0 ? (pub.precio_usd / cryptoPrecios.xmr).toFixed(4) : 0;
+
+          const esOferta = pub.tipo === "OFERTA";
+          const badgeClass = esOferta ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-cyan-500/20 text-cyan-400 border-cyan-500/30";
+          const badgeTexto = esOferta ? "OFERTA" : "DEMANDA";
+
+          const card = document.createElement("div");
+          card.className = "bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md";
+          card.innerHTML = `
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="px-2 py-0.5 rounded border font-mono font-bold ${badgeClass}">${badgeTexto}</span>
+                <span class="text-slate-500 font-mono">${pub.distrito}</span>
+              </div>
+              <h3 class="text-base font-bold text-white leading-snug">${escapeHtml(pub.titulo)}</h3>
+              <p class="text-xs text-slate-400">${escapeHtml(pub.categoria)}</p>
+              
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1">
+                <div class="text-emerald-400 font-bold text-base font-mono">$${pub.precio_usd.toFixed(2)} USD</div>
+                <div class="text-[11px] text-slate-400 font-mono flex gap-3">
+                  <span>⚡ ≈ ${sats.toLocaleString()} Sats</span>
+                  <span>🔒 ≈ ${xmr} XMR</span>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-300">
+                <span class="text-slate-500">Acepta:</span> ${escapeHtml(pub.metodos_pago)}
+              </div>
+              <div class="text-xs text-slate-300">
+                <span class="text-slate-500">Entrega:</span> ${escapeHtml(pub.protocolo_entrega)}
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 mt-4 flex items-center justify-between">
+              <span class="text-xs font-mono text-slate-400">@${escapeHtml(pub.alias)}</span>
+              <button onclick="abrirQR('${escapeHtml(pub.contacto_anonimo)}', '${escapeHtml(pub.alias)}')" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors">
+                <span>Ver Contacto / QR</span>
+              </button>
+            </div>
+          `;
+          feed.appendChild(card);
+        });
+
+      } catch (err) {
+        feed.innerHTML = `<div class="col-span-full text-center py-6 text-red-400 text-sm">Error al conectar con la API en ${API_BASE}. Revisa que Uvicorn y Cloudflared sigan encendidos.</div>`;
+      }
+    }
+
+    // 3. Crear publicación
+    document.getElementById("form-publicacion").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const pagosSeleccionados = Array.from(document.querySelectorAll('input[name="pago"]:checked')).map(cb => cb.value);
+      if (pagosSeleccionados.length === 0) {
+        alert("Selecciona al menos un método de pago aceptado.");
+        return;
+      }
+
+      const payload = {
+        tipo: document.getElementById("tipo").value,
+        alias: document.getElementById("alias").value.trim(),
+        titulo: document.getElementById("titulo").value.trim(),
+        categoria: document.getElementById("categoria").value,
+        distrito: document.getElementById("distrito").value,
+        precio_usd: parseFloat(document.getElementById("precio_usd").value),
+        metodos_pago: pagosSeleccionados.join(", "),
+        contacto_anonimo: document.getElementById("contacto_anonimo").value.trim(),
+        protocolo_entrega: document.getElementById("protocolo_entrega").value
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/publicaciones`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          document.getElementById("form-publicacion").reset();
+          cargarPublicaciones();
+        } else {
+          alert("Hubo un error al registrar la publicación.");
+        }
+      } catch (err) {
+        alert("No se pudo conectar con el servidor.");
+      }
+    });
+
+    // 4. Modal QR
+    function abrirQR(contacto, alias) {
+      document.getElementById("modal-titulo").textContent = `Contacto: @${alias}`;
+      document.getElementById("modal-info").textContent = contacto;
+
+      const qrContainer = document.getElementById("qrcode-box");
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: contacto,
+        width: 160,
+        height: 160,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      const modal = document.getElementById("modal-qr");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function cerrarModal() {
+      const modal = document.getElementById("modal-qr");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function filtrar(tipo) {
+      document.querySelectorAll(".filtro-btn").forEach(b => {
+        b.classList.remove("bg-slate-800", "text-slate-200");
+        b.classList.add("bg-slate-900", "text-slate-400");
+      });
+      event.target.classList.remove("bg-slate-900", "text-slate-400");
+      event.target.classList.add("bg-slate-800", "text-slate-200");
+      cargarPublicaciones(tipo);
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    // Inicialización al cargar la ventana
+    window.addEventListener("DOMContentLoaded", async () => {
+      await actualizarPreciosCrypto();
+      cargarPublicaciones();
+      setInterval(actualizarPreciosCrypto, 60000); // Actualiza cripto cada minuto
+    });
+  </script>
+</body>
+</html>
