@@ -26,7 +26,7 @@
           <span>🇵🇪 Mercado Cusco P2P</span>
           <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono">Zero-KYC</span>
         </h1>
-        <p class="text-slate-400 text-sm mt-1">Intercambio anónimo y descentralizado de bienes, servicios y criptoactivos en la región de Cusco.</p>
+        <p class="text-slate-400 text-sm mt-1">Intercambio descentralizado y anónimo de bienes, servicios y criptoactivos en Cusco.</p>
       </div>
 
       <!-- Ticker Crypto en Vivo -->
@@ -42,24 +42,22 @@
       </div>
     </header>
 
-    <!-- Protocolo de Seguridad y Advertencias -->
+    <!-- Protocolo de Seguridad -->
     <section class="bg-slate-900/80 border-l-4 border-emerald-500 p-4 rounded-r-lg space-y-1 text-xs md:text-sm text-slate-300">
-      <div class="font-bold text-emerald-400 text-sm mb-1">Protocolo de Seguridad y Confidencialidad:</div>
-      <p>• <strong>Vendedor / Ofertante:</strong> Usa una sub-dirección de wallet nueva para cada transacción. No compartas tu número personal; usa Session ID o SimpleX.</p>
-      <p>• <strong>Comprador / Demandante:</strong> Si el bien es físico, pacten un punto neutral concurrido (ej: Real Plaza Cusco, Plaza Túpac Amaru) o servicio de encomienda local con seudónimo.</p>
+      <div class="font-bold text-emerald-400 text-sm mb-1">Protocolo Operativo Seguro:</div>
+      <p>• <strong>Coordinación:</strong> Usa mensajería no custodial (Session o SimpleX) para no vincular números de teléfono.</p>
+      <p>• <strong>Punto de Entrega:</strong> Acuerden puntos públicos concurridos (Real Plaza Cusco, Plaza Túpac Amaru, Plaza de Armas).</p>
     </section>
 
     <!-- Formulario Crear Publicación -->
     <section class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-xl">
-      <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-        <span>Crear Publicación Anónima</span>
-      </h2>
+      <h2 class="text-lg font-bold text-white mb-4">Crear Anuncio Confidencial</h2>
       <form id="form-publicacion" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           
           <!-- Tipo -->
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Tipo de Publicación</label>
+            <label class="block text-xs text-slate-400 mb-1">Tipo de Anuncio</label>
             <select id="tipo" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
               <option value="OFERTA">Tengo / Ofrezco (Venta de bien o servicio)</option>
               <option value="DEMANDA">Busco / Necesito (Demanda de bien o servicio)</option>
@@ -69,13 +67,13 @@
           <!-- Alias Seudónimo -->
           <div>
             <label class="block text-xs text-slate-400 mb-1">Alias Seudónimo</label>
-            <input type="text" id="alias" placeholder="ej: Qosqo_Ghost" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+            <input type="text" id="alias" placeholder="ej: Inka_Cipher" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
           </div>
 
           <!-- Título -->
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Título de la oferta/demanda</label>
-            <input type="text" id="titulo" placeholder="ej: Laptop ThinkPad T480 o Consultoría Python" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
+            <label class="block text-xs text-slate-400 mb-1">Título de la oferta o demanda</label>
+            <input type="text" id="titulo" placeholder="ej: Laptop ThinkPad T480 / Servicio Técnico" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
           </div>
 
           <!-- Categoría -->
@@ -90,9 +88,9 @@
             </select>
           </div>
 
-          <!-- Distrito / Ubicación -->
+          <!-- Ubicación -->
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Ubicación / Distrito (Cusco)</label>
+            <label class="block text-xs text-slate-400 mb-1">Distrito / Encuentro (Cusco)</label>
             <select id="distrito" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
               <option value="Cusco Centro">Cusco Centro</option>
               <option value="Wanchaq">Wanchaq</option>
@@ -111,9 +109,9 @@
           </div>
         </div>
 
-        <!-- Métodos de pago aceptados -->
+        <!-- Métodos de pago -->
         <div>
-          <label class="block text-xs text-slate-400 mb-2">Métodos de pago aceptados (Selecciona uno o más):</label>
+          <label class="block text-xs text-slate-400 mb-2">Métodos de pago aceptados:</label>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
             <label class="flex items-center gap-2 bg-slate-950 p-2 rounded border border-slate-800 cursor-pointer">
               <input type="checkbox" name="pago" value="USDT (Polygon)" checked class="rounded border-slate-700 text-emerald-500">
@@ -134,14 +132,14 @@
           </div>
         </div>
 
-        <!-- Contacto Seguro y Protocolo Entrega -->
+        <!-- Contacto y Entrega -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs text-slate-400 mb-1">ID de Session, SimpleX o Enlace seguro</label>
+            <label class="block text-xs text-slate-400 mb-1">Tu Session ID o Enlace SimpleX (Para hablar)</label>
             <input type="text" id="contacto_anonimo" placeholder="ej: 05a1b2c3d4e5..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
           </div>
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Protocolo de Entrega / Encuentro</label>
+            <label class="block text-xs text-slate-400 mb-1">Protocolo de Entrega</label>
             <select id="protocolo_entrega" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500" required>
               <option value="Entrega en Punto Neutral Concurrido">Entrega en Punto Neutral Concurrido</option>
               <option value="Entrega Digital / Remota Cifrada">Entrega Digital / Remota Cifrada</option>
@@ -157,27 +155,48 @@
       </form>
     </section>
 
-    <!-- Filtros de Publicaciones -->
+    <!-- Filtros -->
     <div class="flex gap-2">
-      <button onclick="filtrar('TODOS')" class="filtro-btn bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-xs font-semibold">Todos los anuncios</button>
-      <button onclick="filtrar('OFERTA')" class="filtro-btn bg-slate-900 hover:bg-slate-800 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Solo Ofertas (Disponibles)</button>
-      <button onclick="filtrar('DEMANDA')" class="filtro-btn bg-slate-900 hover:bg-slate-800 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Solo Demandas (Se busca)</button>
+      <button onclick="filtrar('TODOS')" class="filtro-btn bg-slate-800 text-slate-200 px-4 py-2 rounded-lg text-xs font-semibold">Todos</button>
+      <button onclick="filtrar('OFERTA')" class="filtro-btn bg-slate-900 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Ofertas</button>
+      <button onclick="filtrar('DEMANDA')" class="filtro-btn bg-slate-900 text-slate-400 px-4 py-2 rounded-lg text-xs font-semibold">Demandas</button>
     </div>
 
-    <!-- Contenedor del Feed de Publicaciones -->
-    <main id="feed" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Se inyectan dinámicamente con JS -->
-    </main>
+    <!-- Feed de Publicaciones -->
+    <main id="feed" class="grid grid-cols-1 md:grid-cols-2 gap-4"></main>
 
-    <!-- Modal para QR de Pago / Contacto -->
-    <div id="modal-qr" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-50">
-      <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 max-w-sm w-full space-y-4 text-center">
-        <h3 id="modal-titulo" class="text-base font-bold text-white">Canal Cifrado</h3>
-        <p class="text-xs text-slate-400">Escanea desde tu app de mensajería (Session) o billetera no-custodial:</p>
-        <div id="qrcode-box" class="flex justify-center p-3 bg-white rounded-lg w-fit mx-auto"></div>
-        <p id="modal-info" class="text-xs font-mono break-all text-slate-300 bg-slate-950 p-2.5 rounded border border-slate-800"></p>
-        <button onclick="cerrarModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-white py-2 rounded-lg text-xs font-semibold transition-colors">
-          Cerrar
+    <!-- Modal Dinámico Dividido: Chat Session vs Pago Cripto -->
+    <div id="modal-qr" class="fixed inset-0 bg-black/85 hidden items-center justify-center p-4 z-50">
+      <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 text-center shadow-2xl">
+        
+        <h3 id="modal-titulo" class="text-base font-bold text-white">Trato P2P</h3>
+
+        <!-- Pestañas de Acción -->
+        <div class="flex rounded-lg bg-slate-950 p-1 border border-slate-800 text-xs">
+          <button id="tab-chat" onclick="cambiarTabModal('chat')" class="flex-1 py-1.5 font-semibold rounded bg-emerald-600 text-white transition-all">
+            💬 Abrir Chat Session
+          </button>
+          <button id="tab-pago" onclick="cambiarTabModal('pago')" class="flex-1 py-1.5 font-semibold rounded text-slate-400 hover:text-white transition-all">
+            ⚡ Pagar Cripto
+          </button>
+        </div>
+
+        <p id="modal-instruccion" class="text-xs text-slate-400">Cargando...</p>
+
+        <!-- QR Box -->
+        <div id="qrcode-box" class="flex justify-center p-3 bg-white rounded-xl w-fit mx-auto shadow-inner"></div>
+
+        <!-- Clave / Dirección -->
+        <div class="space-y-2">
+          <div id="modal-info" class="text-xs font-mono break-all text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800 select-all max-h-24 overflow-y-auto"></div>
+          
+          <button id="btn-copiar" onclick="copiarAlPortapapeles()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-2 rounded-lg font-medium border border-slate-700 transition-colors">
+            📋 Copiar al Portapapeles
+          </button>
+        </div>
+
+        <button onclick="cerrarModal()" class="w-full text-slate-500 hover:text-slate-300 text-xs py-1 transition-colors">
+          Cerrar ventana
         </button>
       </div>
     </div>
@@ -185,12 +204,19 @@
   </div>
 
   <script>
-    // URL PÚBLICA DEL BACKEND (CLOUDFLARE TUNNEL)
+    // CAMBIA ESTA LÍNEA por la URL que te dio Render (ej: https://p2pcusco-api.onrender.com)
+    // Mientras Render termina, si tienes Cloudflared prendido puedes usar el trycloudflare.com
     const API_BASE = "https://advertiser-mysterious-knee-catalyst.trycloudflare.com";
 
     let cryptoPrecios = { btc: 0, xmr: 0 };
+    let modalEstado = {
+      alias: "",
+      contacto: "",
+      precioUsd: 0,
+      metodosPago: "",
+      modoActual: "chat"
+    };
 
-    // 1. Obtener precios actualizados desde CoinGecko
     async function actualizarPreciosCrypto() {
       try {
         const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,monero&vs_currencies=usd");
@@ -208,7 +234,6 @@
       }
     }
 
-    // 2. Cargar publicaciones desde FastAPI
     async function cargarPublicaciones(tipo = "") {
       const feed = document.getElementById("feed");
       try {
@@ -222,25 +247,21 @@
         feed.innerHTML = "";
 
         if (data.length === 0) {
-          feed.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 text-sm">No hay publicaciones registradas aún en esta categoría.</div>`;
+          feed.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 text-sm">No hay publicaciones registradas aún.</div>`;
           return;
         }
 
         data.forEach(pub => {
-          // Cálculo referencial satoshis y monero
           const sats = cryptoPrecios.btc > 0 ? Math.round((pub.precio_usd / cryptoPrecios.btc) * 100000000) : 0;
           const xmr = cryptoPrecios.xmr > 0 ? (pub.precio_usd / cryptoPrecios.xmr).toFixed(4) : 0;
-
           const esOferta = pub.tipo === "OFERTA";
-          const badgeClass = esOferta ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" : "bg-cyan-500/20 text-cyan-400 border-cyan-500/30";
-          const badgeTexto = esOferta ? "OFERTA" : "DEMANDA";
 
           const card = document.createElement("div");
           card.className = "bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition-all shadow-md";
           card.innerHTML = `
             <div class="space-y-2">
               <div class="flex items-center justify-between text-xs">
-                <span class="px-2 py-0.5 rounded border font-mono font-bold ${badgeClass}">${badgeTexto}</span>
+                <span class="px-2 py-0.5 rounded border font-mono font-bold ${esOferta ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'}">${pub.tipo}</span>
                 <span class="text-slate-500 font-mono">${pub.distrito}</span>
               </div>
               <h3 class="text-base font-bold text-white leading-snug">${escapeHtml(pub.titulo)}</h3>
@@ -264,8 +285,8 @@
 
             <div class="pt-4 border-t border-slate-800 mt-4 flex items-center justify-between">
               <span class="text-xs font-mono text-slate-400">@${escapeHtml(pub.alias)}</span>
-              <button onclick="abrirQR('${escapeHtml(pub.contacto_anonimo)}', '${escapeHtml(pub.alias)}')" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors">
-                <span>Ver Contacto / QR</span>
+              <button onclick="abrirModalTrato('${escapeHtml(pub.alias)}', '${escapeHtml(pub.contacto_anonimo)}', ${pub.precio_usd}, '${escapeHtml(pub.metodos_pago)}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors shadow">
+                Iniciar Trato P2P
               </button>
             </div>
           `;
@@ -273,17 +294,15 @@
         });
 
       } catch (err) {
-        feed.innerHTML = `<div class="col-span-full text-center py-6 text-red-400 text-sm">Error al conectar con la API en ${API_BASE}. Revisa que Uvicorn y Cloudflared sigan encendidos.</div>`;
+        feed.innerHTML = `<div class="col-span-full text-center py-6 text-red-400 text-sm">Error al conectar con la API en ${API_BASE}. Asegúrate de que el backend esté activo.</div>`;
       }
     }
 
-    // 3. Crear publicación
     document.getElementById("form-publicacion").addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const pagosSeleccionados = Array.from(document.querySelectorAll('input[name="pago"]:checked')).map(cb => cb.value);
       if (pagosSeleccionados.length === 0) {
-        alert("Selecciona al menos un método de pago aceptado.");
+        alert("Selecciona al menos un método de pago.");
         return;
       }
 
@@ -299,71 +318,4 @@
         protocolo_entrega: document.getElementById("protocolo_entrega").value
       };
 
-      try {
-        const res = await fetch(`${API_BASE}/publicaciones`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          document.getElementById("form-publicacion").reset();
-          cargarPublicaciones();
-        } else {
-          alert("Hubo un error al registrar la publicación.");
-        }
-      } catch (err) {
-        alert("No se pudo conectar con el servidor.");
-      }
-    });
-
-    // 4. Modal QR
-    function abrirQR(contacto, alias) {
-      document.getElementById("modal-titulo").textContent = `Contacto: @${alias}`;
-      document.getElementById("modal-info").textContent = contacto;
-
-      const qrContainer = document.getElementById("qrcode-box");
-      qrContainer.innerHTML = "";
-      new QRCode(qrContainer, {
-        text: contacto,
-        width: 160,
-        height: 160,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-
-      const modal = document.getElementById("modal-qr");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
-    function cerrarModal() {
-      const modal = document.getElementById("modal-qr");
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-    }
-
-    function filtrar(tipo) {
-      document.querySelectorAll(".filtro-btn").forEach(b => {
-        b.classList.remove("bg-slate-800", "text-slate-200");
-        b.classList.add("bg-slate-900", "text-slate-400");
-      });
-      event.target.classList.remove("bg-slate-900", "text-slate-400");
-      event.target.classList.add("bg-slate-800", "text-slate-200");
-      cargarPublicaciones(tipo);
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-
-    // Inicialización al cargar la ventana
-    window.addEventListener("DOMContentLoaded", async () => {
-      await actualizarPreciosCrypto();
-      cargarPublicaciones();
-      setInterval(actualizarPreciosCrypto, 60000); // Actualiza cripto cada minuto
-    });
-  </script>
-</body>
-</html>
+      try
